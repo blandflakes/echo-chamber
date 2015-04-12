@@ -1,0 +1,6 @@
+(DONE) 1) Simple app protocol. Tutelage works with the protocol
+2) Investigate usefulness of intent dispatcher with another sample app
+  i) As one point of reference, ripping off the missing intent handler from util for tutelage now.
+  ii) Additionally, the multimethod impl for handling multiple intents is tedious at best.
+3) Schemas for request and response objects, figure out where validation occurs
+4) Document/tests
