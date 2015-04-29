@@ -13,14 +13,9 @@ To use the SDK, implement the IEchoApp protocol found in the echo/core namespace
 Then, get a dispatcher function by passing the app the `request-dispatcher` (also in echo/core).
 
 This dispatcher expects to receive an EchoRequest structured map (NOT a json string). Your server or middleware
-should handle deserializing that before you pass it to the dispatcher. See echo/schemas for more information on
-the schemas to be provided.
+should handle deserializing that before you pass it to the dispatcher. See echo/schemas for more information on the schemas to be provided.
 
-Finally, your app should return an EchoResponse struct. The echo/response namespace has convenience functions
-for creating this, the penultimate function being `respond`
-
-To actually get this SDK, you'll have to build the jar and place it on the classpath, as it isn't published.
-The easiest way is to use leiningen, like a sane person.
+Finally, your app should return an EchoResponse struct. The echo/response namespace has convenience functions for creating this, the penultimate function being `respond`
 
 Check out the source, and then:
 
@@ -30,11 +25,10 @@ In your project, depend on echo-chamber:
 
     [echo-chamber "0.1.0-SNAPSHOT"]
 
-And you're good to go.
+For help, try using the [echo-ring template](http://github.com/blandflakes/echo-ring-template)
 
 ## TODO
 - Unit tests
-- Sample usage (see Usage above)
 - Publish so that lein can pick it up
 
 ## Future enhancements
