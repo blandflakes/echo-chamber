@@ -35,18 +35,8 @@ And you're good to go.
 ## TODO
 - Unit tests
 - Sample usage (see Usage above)
+- Publish so that lein can pick it up
 
 ## Future enhancements
 - Potentially an intent dispatcher
 - Breakout modes for common interactions - i.e. a confirm interaction could be modeled for me.
-- Oneshot apps?
-
-## General Alexa app-building feedback:
-* Some apps don't really want intents or slots, but could do quite a bit with the recognition-only. See professor-elemental for the hack I did to recreate the recognition (order slots alphabetically, brute force supply data, reorder slots when they come in).
-* It seems impossible to say something on exit, as Alexa doesn't do anything with a response to SessionEndedRequest
-* Is it possible to put multiple words to a slot? Documentation on that would be useful (apologies if it's in the docs, I read most of them but it's totally possible I missed something).
-* It seems like the accuracy is greatly improved if my samples include more real-world examples. However, it's impossible to exhaust some of them (i.e. capturing arbitrary sentences). Is there a better way to do this?
-* Switching on intent seems like a natural extension of an SDK. Most apps are going to want to do this.
-* Other common features that apps may want to leverage would be things like:
-  * mode support (i.e. confirm something without having to build an entire response object)
-
