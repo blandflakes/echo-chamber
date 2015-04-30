@@ -28,7 +28,6 @@ In your project, depend on echo-chamber:
 For help, try using the [echo-ring template](http://github.com/blandflakes/echo-ring-template)
 
 ## TODO
-- Unit tests
 - Publish so that lein can pick it up
 
 ## Future enhancements

@@ -12,8 +12,7 @@
 
 (def BaseRequestParams
   "Represents the minimum required parameters in a request object."
-  {
-   (s/required-key "type") s/Str
+  {(s/required-key "type") s/Str
    (s/required-key "requestId") s/Str})
 
 
@@ -23,10 +22,8 @@
 
 (def Intent
   "Represents an intent as passed in to an echo application."
-  {
-   (s/required-key "name") s/Str
-   (s/required-key "slots") SlotMapping
-  })
+  {(s/required-key "name") s/Str
+   (s/required-key "slots") SlotMapping})
 
 (def LaunchRequest (assoc BaseRequestParams (s/required-key "type") (s/eq "LaunchRequest")))
 (def SessionEndedRequest (assoc BaseRequestParams
@@ -38,8 +35,7 @@
 
 (def EchoRequest
   "Represents a request to an Echo application."
-  {
-   (s/required-key "version") s/Str
+  {(s/required-key "version") s/Str
    (s/required-key "session") Session
    (s/required-key "request") (s/either LaunchRequest SessionEndedRequest IntentRequest)})
 

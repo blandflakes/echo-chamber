@@ -29,14 +29,13 @@
    based on the provided request type. Takes as input an EchoRequest (see echo.schema namespace)
    and returns an EchoResponse."
   ([app]
-   (s/with-fn-validation
-     (s/fn :- schemas/EchoResponse
-       [echo-request :- schemas/EchoRequest]
-       (let [request (get echo-request "request")
-             session (get echo-request "session")
-             request-type (get request "type")]
-         (cond
-          (= request-type "LaunchRequest") (on-launch app request session)
-          (= request-type "IntentRequest") (on-intent app request session)
-          (= request-type "SessionEndedRequest") (on-end app request session)
-          :else (missing-request-type request-type session)))))))
+   (s/fn :- schemas/EchoResponse
+     [echo-request :- schemas/EchoRequest]
+     (let [request (get echo-request "request")
+           session (get echo-request "session")
+           request-type (get request "type")]
+       (cond
+        (= request-type "LaunchRequest") (on-launch app request session)
+        (= request-type "IntentRequest") (on-intent app request session)
+        (= request-type "SessionEndedRequest") (on-end app request session)
+        :else (missing-request-type request-type session))))))
