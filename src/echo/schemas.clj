@@ -59,4 +59,5 @@
    (s/required-key "sessionAttributes") AttributeMap
    (s/required-key "response") {(s/optional-key "outputSpeech") OutputSpeech
                                 (s/optional-key "card") Card
+                                (s/optional-key "reprompt") OutputSpeech
                                 (s/required-key "shouldEndSession") s/Bool}})
