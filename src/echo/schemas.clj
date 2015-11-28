@@ -39,19 +39,36 @@
    (s/required-key "session") Session
    (s/required-key "request") (s/either LaunchRequest SessionEndedRequest IntentRequest)})
 
+(def PlainTextSpeech
+  "Represents plain speech to be spoken by Alexa."
+  {(s/required-key "type") (s/eq "PlainText")
+   (s/required-key "text") s/Str})
+
+(def SSMLSpeech
+  "Represents speech specified in SSML."
+  {(s/required-key "type") (s/eq "SSML")
+   (s/required-key "ssml") s/Str})
+
 (def OutputSpeech
   "Represents the portion of the response that contains instructions
    about speech."
-  {(s/required-key "type") (s/either (s/eq "PlainText"))
-   (s/required-key "text") s/Str})
+  (s/either SSMLSpeech PlainTextSpeech))
+
+(def SimpleCard
+  "Represents the fields present in a simple card."
+  {(s/required-key "type") (s/eq "Simple")
+   (s/optional-key "title") s/Str
+   (s/optional-key "subtitle") s/Str
+   (s/optional-key "content") s/Str})
+
+(def LinkAccountCard
+  "Represents the fields present in a card of type LinkAccount"
+  {(s/required-key "type") (s/eq "LinkAccount")})
 
 (def Card
   "Represents the portion of the resposne that contains instructions
    about displaying a card to the user."
-  {(s/required-key "type") (s/either (s/eq "Simple"))
-   (s/required-key "title") s/Str
-   (s/required-key "subtitle") s/Str
-   (s/required-key "content") s/Str})
+  (s/either LinkAccountCard SimpleCard))
 
 (def EchoResponse
   "Represents a response from an Echo application."

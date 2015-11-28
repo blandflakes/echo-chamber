@@ -6,18 +6,7 @@
 (use-fixtures :once schema.test/validate-schemas)
 
 (deftest cards
-  (testing "with all parameters"
-    (let [card-type "Simple"
-          title "test-title"
-          subtitle "test-subtitle"
-          content "test-content"
-          built-card (make-card card-type title subtitle content)
-          expected-card {"type" card-type
-                         "title" title
-                         "subtitle" subtitle
-                         "content" content}]
-      (is (= expected-card built-card))))
-  (testing "simple helper"
+  (testing "simple"
     (let [title "test-title"
           subtitle "test-subtitle"
           content "test-content"
@@ -26,21 +15,24 @@
                          "title" title
                          "subtitle" subtitle
                          "content" content}]
+      (is (= expected-card built-card))))
+  (testing "link-account"
+    (let [built-card (link-account-card)
+          expected-card {"type" "LinkAccount"}]
       (is (= expected-card built-card)))))
 
 (deftest speeches
-  (testing "with all parameters"
-    (let [speech-type "PlainText"
-          words "test words"
-          built-speech (make-speech speech-type words)
-          expected-speech {"type" speech-type
-                           "text" words}]
-      (is (= expected-speech built-speech))))
-  (testing "simple helper"
+  (testing "plain-text"
     (let [words "test words"
-          built-speech (simple-speech words)
+          built-speech (plain-text-speech words)
           expected-speech {"type" "PlainText"
                            "text" words}]
+      (is (= expected-speech built-speech))))
+  (testing "ssml"
+    (let [ssml "this should be markup"
+          built-speech (ssml-speech ssml)
+          expected-speech {"type" "SSML"
+                           "ssml" ssml}]
       (is (= expected-speech built-speech)))))
 
 (def mock-session
@@ -56,9 +48,9 @@
                              "sessionAttributes" {"attr" "val"}
                              "response" {"shouldEndSession" true}}]
       (is (= expected-response response))))
-  (testing "with parameters"
+  (testing "with original parameters (plaintext speech, simple card)"
     (let [card (simple-card "test-title" "test-subtitle" "test-content")
-          speech (simple-speech "test words")
+          speech (plain-text-speech "test words")
           attributes {"new-attr" "new-val"}
           response (respond mock-session {:card card :speech speech :should-end? false
                                           :attributes attributes})
@@ -67,4 +59,15 @@
                              "response" {"shouldEndSession" false
                                          "card" card
                                          "outputSpeech" speech}}]
-      (is (= expected-response response)))))
+      (is (= expected-response response))))
+  (testing "with alternate types (ssml speech, link-account card)"
+    (let [card (link-account-card)
+          speech (ssml-speech "test words")
+          attributes {"new-attr" "new-val"}
+          response (respond mock-session {:card card :speech speech :should-end? false
+                                          :attributes attributes})
+          expected-response {"version" "1.0"
+                             "sessionAttributes" attributes
+                             "response" {"shouldEndSession" false
+                                         "card" card
+                                         "outputSpeech" speech}}])))

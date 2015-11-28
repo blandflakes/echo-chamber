@@ -9,8 +9,8 @@
 
 (deftype EchoingEchoApp []
   IEchoApp
-  (on-launch [this request session] (response/respond session {:should-end? false :speech (response/simple-speech "launch")}))
-  (on-intent [this request session] (response/respond session {:should-end? true :speech (response/simple-speech (get-in request ["intent" "name"]))}))
+  (on-launch [this request session] (response/respond session {:should-end? false :speech (response/plain-text-speech "launch")}))
+  (on-intent [this request session] (response/respond session {:should-end? true :speech (response/plain-text-speech (get-in request ["intent" "name"]))}))
   (on-end [this request session] (response/respond session {:should-end? true})))
 
 (def dispatcher (request-dispatcher (EchoingEchoApp.)))

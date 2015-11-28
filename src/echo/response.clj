@@ -4,13 +4,18 @@
             [schema.test]))
 
 ; Contains functions for generating a response
-(s/defn make-card :- schemas/Card
-  "Builds a map representing a card from the provided entries."
-  [card-type title subtitle content]
-  {"type" card-type
+(s/defn simple-card :- schemas/SimpleCard
+  "Builds a map representing a simple card from the provided entries."
+  [title subtitle content]
+  {"type" "Simple"
    "title" title
    "subtitle" subtitle
    "content" content})
+
+(s/defn link-account-card :- schemas/LinkAccountCard
+  "Builds a map representing a LinkAccountCard."
+  []
+  {"type" "LinkAccount"})
 
 (s/defn with-card :- schemas/EchoResponse
   "Returns a version of the provided response with the card inserted
@@ -19,13 +24,17 @@
    card :- schemas/Card]
   (assoc-in response ["response" "card"] card))
 
-(def simple-card (partial make-card "Simple"))
-
-(s/defn make-speech :- schemas/OutputSpeech
-  "Builds a map representing speech output with the provided type and text."
-  [speech-type text]
-  {"type" speech-type
+(s/defn plain-text-speech :- schemas/PlainTextSpeech
+  "Builds a map representing plaintext speech output with the provided type and text."
+  [text]
+  {"type" "PlainText"
    "text" text})
+
+(s/defn ssml-speech :- schemas/SSMLSpeech
+  "Builds a map representing speech specified by SSML."
+  [ssml]
+  {"type" "SSML"
+   "ssml" ssml})
 
 (s/defn with-speech :- schemas/EchoResponse
   "Returns a version of the provided response with the speech inserted
@@ -33,8 +42,6 @@
   [response :- schemas/EchoResponse
    speech :- schemas/OutputSpeech]
   (assoc-in response ["response" "outputSpeech"] speech))
-
-(def simple-speech (partial make-speech "PlainText"))
 
 (s/defn with-attributes :- schemas/EchoResponse
   "Returns a version of the provided response with its attributes
