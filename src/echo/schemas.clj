@@ -8,7 +8,8 @@
   {(s/required-key "new") s/Bool
    (s/required-key "sessionId") s/Str
    (s/required-key "attributes") AttributeMap
-   (s/required-key "user") {(s/required-key "userId") s/Str}})
+   (s/required-key "user") {(s/required-key "userId") s/Str
+                            (s/optional-key "accessToken") s/Str}})
 
 (def BaseRequestParams
   "Represents the minimum required parameters in a request object."
