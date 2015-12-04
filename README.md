@@ -31,3 +31,4 @@ For help/an example, try using the [echo-chamber-compojure template](http://gith
 ## Future enhancements
 - Potentially an intent dispatcher
 - Breakout modes for common interactions - i.e. a confirm interaction could be modeled for me.
+- Consider dynamically binding session so it's not part of the signature
