@@ -1,10 +1,10 @@
 # echo-chamber
 
+[![Clojars Project](http://clojars.org/echo-chamber/latest-version.svg)](http://clojars.org/echo-chamber)
+
 A minimalist SDK for setting up a handler for implementing an Echo application server.
 
 Follows the example of the Java SDK by requiring methods for handling each request type.
-
-[![Clojars Project](http://clojars.org/echo-chamber/latest-version.svg)](http://clojars.org/echo-chamber)
 
 ## Usage
 

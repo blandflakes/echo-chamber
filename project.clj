@@ -1,4 +1,4 @@
-(defproject echo-chamber "0.0.1"
+(defproject echo-chamber "0.1.0"
   :url "https://github.com/blandflakes/echo-chamber"
   :license {:name "MIT License"
             :url "http://opensource.org/licenses/MIT"}

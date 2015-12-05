@@ -24,7 +24,7 @@
    card :- schemas/Card]
   (assoc-in response ["response" "card"] card))
 
-(s/defn plain-text-speech :- schemas/PlainTextSpeech
+(s/defn plaintext-speech :- schemas/PlainTextSpeech
   "Builds a map representing plaintext speech output with the provided type and text."
   [text]
   {"type" "PlainText"

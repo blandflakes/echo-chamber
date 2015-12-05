@@ -9,8 +9,8 @@
 
 (deftype EchoingEchoApp []
   IEchoApp
-  (on-launch [this request session] (response/respond session {:should-end? false :speech (response/plain-text-speech "launch")}))
-  (on-intent [this request session] (response/respond session {:should-end? true :speech (response/plain-text-speech (get-in request ["intent" "name"]))}))
+  (on-launch [this request session] (response/respond session {:should-end? false :speech (response/plaintext-speech "launch")}))
+  (on-intent [this request session] (response/respond session {:should-end? true :speech (response/plaintext-speech (get-in request ["intent" "name"]))}))
   (on-end [this request session] (response/respond session {:should-end? true})))
 
 (def dispatcher (request-dispatcher (EchoingEchoApp.)))
@@ -23,7 +23,8 @@
                               "attributes" {}
                               "user" {"userId" "userId"}}
                    "request" {"type" "LaunchRequest"
-                              "requestId" "requestId"}}
+                              "requestId" "requestId"
+                              "timestamp" 123}}
           response (s/with-fn-validation (dispatcher request))
           expected-response {"version" "1.0"
                              "sessionAttributes" {}
@@ -41,6 +42,7 @@
                               "user" {"userId" "userId"}}
                    "request" {"type" "IntentRequest"
                               "requestId" "requestId"
+                              "timestamp" 123
                               "intent" {"name" "DoStuffIntent"
                                         "slots" {}}}}
           response (s/with-fn-validation (dispatcher request))
@@ -60,6 +62,7 @@
                               "user" {"userId" "userId"}}
                    "request" {"type" "SessionEndedRequest"
                               "requestId" "requestId"
+                              "timestamp" 123
                               "reason" "Requested"}}
           response (s/with-fn-validation (dispatcher request))
           expected-response {"version" "1.0"
@@ -75,6 +78,7 @@
                               "attributes" {}
                               "user" {"userId" "userId"}}
                    "request" {"type" "RandomRequest"
+                              "timestamp" 123
                               "requestId" "requestId"}}
           response (dispatcher request)
           expected-response {"version" "1.0"

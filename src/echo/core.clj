@@ -12,7 +12,7 @@
    we need to handle our own error reporting. Might be unnecessary or less useful
    if I apply schema validation to the input to request-dispatcher."
   [request-type session]
-  (let [speech (response/plain-text-speech "I'm not able to understand your request")
+  (let [speech (response/plaintext-speech "I'm not able to understand your request")
         card (response/simple-card "Internal Error"
                                    "Bad request type"
                                    (str "Unable to handle request type " request-type))]
