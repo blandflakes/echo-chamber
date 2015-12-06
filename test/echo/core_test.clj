@@ -24,7 +24,7 @@
                               "user" {"userId" "userId"}}
                    "request" {"type" "LaunchRequest"
                               "requestId" "requestId"
-                              "timestamp" 123}}
+                              "timestamp" "2015-05-13T12:34:56Z"}}
           response (s/with-fn-validation (dispatcher request))
           expected-response {"version" "1.0"
                              "sessionAttributes" {}
@@ -42,7 +42,7 @@
                               "user" {"userId" "userId"}}
                    "request" {"type" "IntentRequest"
                               "requestId" "requestId"
-                              "timestamp" 123
+                              "timestamp" "2015-05-13T12:34:56Z"
                               "intent" {"name" "DoStuffIntent"
                                         "slots" {}}}}
           response (s/with-fn-validation (dispatcher request))
@@ -62,7 +62,7 @@
                               "user" {"userId" "userId"}}
                    "request" {"type" "SessionEndedRequest"
                               "requestId" "requestId"
-                              "timestamp" 123
+                              "timestamp" "2015-05-13T12:34:56Z"
                               "reason" "Requested"}}
           response (s/with-fn-validation (dispatcher request))
           expected-response {"version" "1.0"
@@ -78,7 +78,7 @@
                               "attributes" {}
                               "user" {"userId" "userId"}}
                    "request" {"type" "RandomRequest"
-                              "timestamp" 123
+                              "timestamp" "2015-05-13T12:34:56Z"
                               "requestId" "requestId"}}
           response (dispatcher request)
           expected-response {"version" "1.0"

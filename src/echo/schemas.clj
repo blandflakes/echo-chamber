@@ -15,7 +15,7 @@
   "Represents the minimum required parameters in a request object."
   {(s/required-key "type") s/Str
    (s/required-key "requestId") s/Str
-   (s/required-key "timestamp") s/Int})
+   (s/required-key "timestamp") s/Str})
 
 
 (def SlotMapping
