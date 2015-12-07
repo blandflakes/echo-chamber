@@ -8,11 +8,6 @@ Follows the example of the Java SDK by requiring methods for handling each reque
 
 ## Usage
 
-In your project, depend on echo-chamber:
-
-    [echo-chamber "0.0.1"]
-
-
 This SDK is designed to be placed in between a web server (such as Ring or Compojure) and your application, providing
 simple routing and schema validation, as well as response convenience methods.
 
