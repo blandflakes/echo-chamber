@@ -21,7 +21,7 @@ should handle deserializing that before you pass it to the dispatcher. See echo/
 
 Finally, your app should return an EchoResponse struct. The echo/response namespace has convenience functions for creating this, the penultimate function being `respond`
 
-For help/an example, try using the [echo-chamber-compojure template](http://github.com/blandflakes/echo-chamber-compojure)
+For help/an example, try using the [echo-chamber-template](http://github.com/blandflakes/echo-chamber-template)
 
 ## Future enhancements
 - Potentially an intent dispatcher
