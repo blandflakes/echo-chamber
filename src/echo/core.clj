@@ -11,18 +11,17 @@
    This is less necessary if we can return error codes, but for now it looks like
    we need to handle our own error reporting. Might be unnecessary or less useful
    if I apply schema validation to the input to request-dispatcher."
-  [request-type session]
+  [request-type]
   (let [speech (response/plaintext-speech "I'm not able to understand your request")
-        card (response/simple-card "Internal Error"
-                                   "Bad request type"
+        card (response/simple-card "Internal Error: Bad request type"
                                    (str "Unable to handle request type " request-type))]
-    (response/respond session {:speech speech :card card :should-end? true})))
+    (response/respond {:speech speech :card card :should-end? true})))
 
 (defprotocol IEchoApp
   "An application that responds to voice requests."
   (on-launch [this request session] "Called when the user launches the application.")
   (on-intent [this request session] "Called when the user specifies an intent.")
-  (on-end [this request session] "Called when the sessions ends."))
+  (on-end [this request session] "Called when the session ends."))
 
 (defn request-dispatcher
   "Wraps the app in a dispatcher that calls the appropriate method
@@ -38,4 +37,4 @@
         (= request-type "LaunchRequest") (on-launch app request session)
         (= request-type "IntentRequest") (on-intent app request session)
         (= request-type "SessionEndedRequest") (on-end app request session)
-        :else (missing-request-type request-type session))))))
+        :else (missing-request-type request-type))))))
