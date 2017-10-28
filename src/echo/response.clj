@@ -7,8 +7,8 @@
 (s/defn simple-card :- schemas/SimpleCard
   "Builds a map representing a simple card from the provided entries."
   [title content]
-  {"type" "Simple"
-   "title" title
+  {"type"    "Simple"
+   "title"   title
    "content" content})
 
 (s/defn link-account-card :- schemas/LinkAccountCard
@@ -56,20 +56,19 @@
    :card should point to a valid card, or not be present if no card is sent
    :speech should point to valid speech, or not be present if no speech is sent
    :should-end? is whether the app session should close. Defaults to true.
-   If the second map is not sent, a response with no card, no speech, and a should-end? value of true will be created.
-   Uses the attributes supplied in the session if none are supplied."
+   If the second map is not sent, a response with no card, no speech, and a should-end? value of true will be created."
   ([] (respond {}))
   ([{:keys [attributes card speech should-end?]
-     :or {should-end? true}}]
-  (let [response {"version" "1.0"
-                  "response" {"shouldEndSession" should-end?}}
-        response (if attributes
-                   (with-attributes response attributes)
-                   response)
-        response (if speech
-                   (with-speech response speech)
-                   response)
-        response (if card
-                   (with-card response card)
-                   response)]
-    response)))
+     :or   {should-end? true}}]
+    (let [response {"version"  "1.0"
+                    "response" {"shouldEndSession" should-end?}}
+          response (if attributes
+                     (with-attributes response attributes)
+                     response)
+          response (if speech
+                     (with-speech response speech)
+                     response)
+          response (if card
+                     (with-card response card)
+                     response)]
+      response)))

@@ -34,7 +34,7 @@
            session (get echo-request "session")
            request-type (get request "type")]
        (cond
-        (= request-type "LaunchRequest") (on-launch app request session)
-        (= request-type "IntentRequest") (on-intent app request session)
-        (= request-type "SessionEndedRequest") (on-end app request session)
-        :else (missing-request-type request-type))))))
+         (= request-type "LaunchRequest") (on-launch app request session)
+         (= request-type "IntentRequest") (on-intent app request session)
+         (= request-type "SessionEndedRequest") (on-end app request session)
+         :else (missing-request-type request-type))))))

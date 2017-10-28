@@ -10,10 +10,9 @@
     (let [title "test-title"
           subtitle "test-subtitle"
           content "test-content"
-          built-card (simple-card title subtitle content)
-          expected-card {"type" "Simple"
-                         "title" title
-                         "subtitle" subtitle
+          built-card (simple-card title content)
+          expected-card {"type"    "Simple"
+                         "title"   title
                          "content" content}]
       (is (= expected-card built-card))))
   (testing "link-account"
@@ -36,38 +35,37 @@
       (is (= expected-speech built-speech)))))
 
 (def mock-session
-  {"new" true
-   "sessionId" "sessionId"
+  {"new"        true
+   "sessionId"  "sessionId"
    "attributes" {"attr" "val"}
-   "user" {"userId" "test-user"}})
+   "user"       {"userId" "test-user"}})
 
 (deftest responses
   (testing "with no parameters"
     (let [response (respond mock-session)
-          expected-response {"version" "1.0"
-                             "sessionAttributes" {"attr" "val"}
+          expected-response {"version"  "1.0"
                              "response" {"shouldEndSession" true}}]
       (is (= expected-response response))))
   (testing "with original parameters (plaintext speech, simple card)"
-    (let [card (simple-card "test-title" "test-subtitle" "test-content")
+    (let [card (simple-card "test-title" "test-content")
           speech (plaintext-speech "test words")
           attributes {"new-attr" "new-val"}
-          response (respond mock-session {:card card :speech speech :should-end? false
-                                          :attributes attributes})
-          expected-response {"version" "1.0"
+          response (respond {:card       card :speech speech :should-end? false
+                             :attributes attributes})
+          expected-response {"version"           "1.0"
                              "sessionAttributes" attributes
-                             "response" {"shouldEndSession" false
-                                         "card" card
-                                         "outputSpeech" speech}}]
+                             "response"          {"shouldEndSession" false
+                                                  "card"             card
+                                                  "outputSpeech"     speech}}]
       (is (= expected-response response))))
   (testing "with alternate types (ssml speech, link-account card)"
     (let [card (link-account-card)
           speech (ssml-speech "test words")
           attributes {"new-attr" "new-val"}
-          response (respond mock-session {:card card :speech speech :should-end? false
-                                          :attributes attributes})
-          expected-response {"version" "1.0"
+          response (respond {:card       card :speech speech :should-end? false
+                             :attributes attributes})
+          expected-response {"version"           "1.0"
                              "sessionAttributes" attributes
-                             "response" {"shouldEndSession" false
-                                         "card" card
-                                         "outputSpeech" speech}}])))
+                             "response"          {"shouldEndSession" false
+                                                  "card"             card
+                                                  "outputSpeech"     speech}}])))
