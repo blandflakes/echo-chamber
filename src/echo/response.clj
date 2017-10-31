@@ -1,55 +1,52 @@
-(ns echo.response
-  (:require [echo.schemas :as schemas]
-            [schema.core :as s]
-            [schema.test]))
+(ns echo.response)
 
 ; Contains functions for generating a response
-(s/defn simple-card :- schemas/SimpleCard
+(defn simple-card
   "Builds a map representing a simple card from the provided entries."
   [title content]
   {"type"    "Simple"
    "title"   title
    "content" content})
 
-(s/defn link-account-card :- schemas/LinkAccountCard
+(defn link-account-card
   "Builds a map representing a LinkAccountCard."
   []
   {"type" "LinkAccount"})
 
-(s/defn with-card :- schemas/EchoResponse
+(defn with-card
   "Returns a version of the provided response with the card inserted
    into the response."
-  [response :- schemas/EchoResponse
-   card :- schemas/Card]
+  [response
+   card]
   (assoc-in response ["response" "card"] card))
 
-(s/defn plaintext-speech :- schemas/PlainTextSpeech
+(defn plaintext-speech
   "Builds a map representing plaintext speech output with the provided type and text."
   [text]
   {"type" "PlainText"
    "text" text})
 
-(s/defn ssml-speech :- schemas/SSMLSpeech
+(defn ssml-speech
   "Builds a map representing speech specified by SSML."
   [ssml]
   {"type" "SSML"
    "ssml" ssml})
 
-(s/defn with-speech :- schemas/EchoResponse
+(defn with-speech
   "Returns a version of the provided response with the speech inserted
    into the response."
-  [response :- schemas/EchoResponse
-   speech :- schemas/OutputSpeech]
+  [response
+   speech]
   (assoc-in response ["response" "outputSpeech"] speech))
 
-(s/defn with-attributes :- schemas/EchoResponse
+(defn with-attributes
   "Returns a version of the provided response with its attributes
    replaced with the provided attributes."
-  [response :- schemas/EchoResponse
-   attributes :- schemas/AttributeMap]
+  [response
+   attributes]
   (assoc response "sessionAttributes" attributes))
 
-(s/defn respond :- schemas/EchoResponse
+(defn respond
   "Builds a complete response with the provided arguments.
    The argument is a hash of options. Supported values:
    :attributes should point to a map of {string object}, which will overwrite any existing session attribute map.

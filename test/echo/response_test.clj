@@ -1,9 +1,6 @@
 (ns echo.response-test
   (:require [clojure.test :refer :all]
-            [echo.response :refer :all]
-            [echo.schemas :as schemas]))
-
-(use-fixtures :once schema.test/validate-schemas)
+            [echo.response :refer :all]))
 
 (deftest cards
   (testing "simple"

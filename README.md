@@ -9,28 +9,35 @@ Follows the example of the Java SDK by requiring methods for handling each reque
 ## Usage
 
 This SDK is designed to be placed in between a web server (such as Ring) and your application, providing
-simple intent routing (not to be confused with URL routing) and schema validation, as well as response convenience methods.
+simple intent routing (not to be confused with URL routing), as well as response convenience methods.
 
-To use the SDK, implement the IEchoApp protocol found in the `echo/core` namespace.
-Then, get a dispatcher function by passing the app the `request-dispatcher` (also in echo/core).
+To use the SDK, create a map that specifies your handlers. There are currently three supported keys:
+
+`requests`
+The `requests` field specifies a map of string request-name to function. The function should take a single
+echo request, and return an echo response.
+[This](https://developer.amazon.com/docs/custom-skills/request-and-response-json-reference.html) is a good reference
+for the return types.
+
+`intents`
+Identical to the `requests` map in function, except using intent-name for the key.
+
+Then, get a dispatcher function by passing the spec to `request-dispatcher` (also in echo/core). The dispatcher
+wraps your map with a handler that will route requests to your request handlers, using the request type as the key.
+IntentRequest, however, will be routed to your intent handlers, using the name of the intent.
 
 This dispatcher expects to receive an EchoRequest structured map (NOT a json string). Your server or middleware
 should handle deserializing that before you pass it to the dispatcher.
 
-Finally, your app should return an EchoResponse struct. The echo/response namespace has convenience functions for
-creating this, the primary function being `respond`.
+The echo/response namespace has convenience functions for creating responses, the primary function being `respond`.
 
 For help/an example, try using the [echo-chamber-template](http://github.com/blandflakes/echo-chamber-template)
 
 ## Future enhancements
-- Replace schema with spec.
-- Potentially an intent dispatcher instead of the user having to multimethod themselves
-- It's possible macros or a DSL could make this more pleasant to work in, but I haven't conceived of a design for that
-at this point. One opportunity may be intent dispatch - everybody writes the same multimethod definition. A macro could
-assist here, similar to Compojure's routes.
-- Consider dynamically binding session so it's not part of the signature. The session is just part of the request,
-which we already send. Another macro/DSL opportunity?
+- Lifecycle and data management. Right now, my sample app just manages its state within namespace. We'd like to at least be able to operate in a component-like manner.
+- Spec integration. Since spec has no plans to support stringly-keyed maps, we'd likely need to implement a layer
+between the handler and whatever server serves the app to convert map keys between symbols and keys.
+- More response types. I've only added convenience methods as I need them, and honestly, there's probably a cleaner
+way of specifying responses than I have. Open to feedback/experimentation here.
 - A REPL-driven test workflow. Lots of online skill testers exist, but it would be even better if we could interact
-with our app in the REPL.
-- Breakout modes for common interactions - i.e. a confirm interaction could be modeled for me.
-
+with our app in the REPL, and at runtime.
