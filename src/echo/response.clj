@@ -57,15 +57,15 @@
   ([] (respond {}))
   ([{:keys [attributes card speech should-end?]
      :or   {should-end? true}}]
-    (let [response {"version"  "1.0"
-                    "response" {"shouldEndSession" should-end?}}
-          response (if attributes
-                     (with-attributes response attributes)
-                     response)
-          response (if speech
-                     (with-speech response speech)
-                     response)
-          response (if card
-                     (with-card response card)
-                     response)]
-      response)))
+   (let [response {"version"  "1.0"
+                   "response" {"shouldEndSession" should-end?}}
+         response (if attributes
+                    (with-attributes response attributes)
+                    response)
+         response (if speech
+                    (with-speech response speech)
+                    response)
+         response (if card
+                    (with-card response card)
+                    response)]
+     response)))

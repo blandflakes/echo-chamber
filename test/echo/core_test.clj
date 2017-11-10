@@ -4,7 +4,8 @@
             [echo.response :as response]))
 
 (def echo-spec {
-                :requests {launch      (fn [_] (response/respond {:should-end? false :speech (response/plaintext-speech "launch")}))
+                :requests {launch      (fn [request] (response/respond {:should-end? false
+                                                                        :speech      (response/plaintext-speech (get-in request ["request" "type"]))}))
                            end-session (fn [_] (response/respond {:should-end? true}))}
                 :intents  {"DoStuffIntent" (fn [request] (response/respond {:should-end? true
                                                                             :speech      (response/plaintext-speech
@@ -27,7 +28,7 @@
           expected-response {"version"  "1.0"
                              "response" {"shouldEndSession" false
                                          "outputSpeech"     {"type" "PlainText"
-                                                             "text" "launch"}}}]
+                                                             "text" "LaunchRequest"}}}]
       (is (= expected-response response)))))
 
 (deftest intent-routing

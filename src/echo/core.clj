@@ -20,7 +20,7 @@
     (response/respond {:speech speech :card card :should-end? true})))
 
 (defn dispatch
-  "Given a skill-spec and a request, routes the request t to the appropriate handler. If the handler receives a request
+  "Given a skill-spec and a request, routes the request to the appropriate handler. If the handler receives a request
   type or intent that the provided skill-spec does not support, it will provide an error message back to the user."
   [skill-spec echo-request]
   (let [request (get echo-request "request")
@@ -31,7 +31,7 @@
           (intent-handler echo-request)
           ((or (:unsupported-action skill-spec) unsupported-action) request)))
       (if-let [request-handler (get-in skill-spec [:requests request-type])]
-        (request-handler request)
+        (request-handler echo-request)
         ((or (:unsupported-action skill-spec) unsupported-action) request)))))
 
 (defn request-dispatcher
