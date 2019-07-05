@@ -58,9 +58,14 @@ responses.
 
 ## Deploying
 
-For help/an example, try using the [echo-chamber-template](http://github.com/blandflakes/echo-chamber-template).
-This template hosts a skill in a Servlet, with some required components for verification of requests. You can also
-use this abstraction in AWS Lambda, though I haven't hosted any skills there yet and therefore have no sample code.
+This library is a small core designed to be run "inside" of some hosting solution. Typically, this would be
+an HTTP server or inside something like AWS Lambda.
+
+I've developed a minimal web server that can host multiple skills called [echo-chamber-server](https://github.com/blandflakes/echo-chamber-server). [echo-chamber-template](http://github.com/blandflakes/echo-chamber-template) can be used to generate new projects using this server.
+
+For a fully-integrated solution using both `echo-chamber` and `echo-chamber-server`, see [echo-stopwatch](https://github.com/blandflakes/echo-stopwatch)
+
+This library should also be usable within AWS Lambda or any arbitrary middleware that can deserialize JSON requests to Clojure(script) data structures. However, I haven't yet hosted any skills in those paradigms, so I don't have any sample code to share.
 
 ## Future enhancements
 - A REPL-driven test workflow. Lots of online skill testers exist, but it would be even better if we could interact
@@ -69,6 +74,8 @@ with our app in the REPL, and at runtime. Could also start with some test utils.
 
 ## Status
 
-I very lazily develop this "SDK", as I don't find it extremely interesting. As I encounter use cases in my own projects,
-I may add things. Please feel free to contribute, as there's no guarantee I'm going to build any of the things in this
-document.
+I very lazily develop this "SDK", as I don't find it extremely interesting. As I encounter use cases in my own projects, I may add things. Please feel free to contribute, fork, etc!
+
+## License
+
+MIT, I guess!
