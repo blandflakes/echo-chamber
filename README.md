@@ -2,9 +2,11 @@
 
 [![Clojars Project](http://clojars.org/echo-chamber/latest-version.svg)](http://clojars.org/echo-chamber)
 
-A minimalist SDK for setting up a handler for implementing an Echo application server.
+A minimalist, zero-dependency Clojure SDK for implementing an Echo skill.
 
-Patterned after the Alexa Skills Kit for Java.
+Patterned after the Alexa Skills Kit for Java, this SDK enables dispatching of requests via various
+matchers and provides helpers for various response shapes. A `skill` function manages dispatch of requests
+based on the provided `(matcher handler)` tuples.
 
 ## Sample Code
 
@@ -61,10 +63,6 @@ This template hosts a skill in a Servlet, with some required components for veri
 use this abstraction in AWS Lambda, though I haven't hosted any skills there yet and therefore have no sample code.
 
 ## Future enhancements
-- Template directive response objects
-- Dialog response objects
-- Spec integration. Since spec has no plans to support stringly-keyed maps, we'd likely need to implement a layer
-between the handler and whatever server serves the app to convert map keys between symbols and keys.
 - A REPL-driven test workflow. Lots of online skill testers exist, but it would be even better if we could interact
 with our app in the REPL, and at runtime. Could also start with some test utils.
 - Potential move to [Clojure `deps` and `cli`](https://clojure.org/guides/deps_and_cli)
